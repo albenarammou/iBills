@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="iBills.Views.NewItem"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Content>
+        <StackLayout Padding="15" Spacing="20">
+            <Button
+                Command="{Binding GoToMainCommand}"
+                CommandParameter="GoToMainCommand"
+                Text="Cancel" />
+            <Button
+                Command="{Binding SaveNewCommand}"
+                CommandParameter="SaveNewCommand"
+                Text="Save" />
+            <Label FontSize="Medium" Text="Text" />
+            <Entry FontSize="Small" Text="{Binding NewItemText}" />
+            <Label FontSize="Medium" Text="Description" />
+            <Editor
+                Margin="0"
+                FontSize="Small"
+                Text="{Binding NewItemDescription}" />
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>
