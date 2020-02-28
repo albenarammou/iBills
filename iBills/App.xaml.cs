@@ -34,6 +34,7 @@ namespace iBills
             containerRegistry.RegisterForNavigation<MenuPage, MenuPageViewModel>();
             containerRegistry.RegisterForNavigation<ItemDetails, ItemDetailsViewModel>();
             containerRegistry.RegisterForNavigation<NewItem, NewItemViewModel>();
+            containerRegistry.RegisterForNavigation<Items, ItemsViewModel>();
         }
     }
 }

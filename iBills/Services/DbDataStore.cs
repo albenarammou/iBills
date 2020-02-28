@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
 using iBills.Models;
+using Xamarin.Forms;
 
 namespace iBills.Services
 {
@@ -14,6 +15,7 @@ namespace iBills.Services
 
         private SQLiteAsyncConnection Database;
         private static bool initialized = false;
+
         public DbDataStore()
         {
             Database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);

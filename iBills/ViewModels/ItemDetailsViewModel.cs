@@ -17,12 +17,15 @@ namespace iBills.ViewModels
         //    Item = item;
         //}
 
-        
+        public string SelectedItemText;
+        public string SelectedItemDescription;
         public DelegateCommand GoToMainCommand { get; }
         public ItemDetailsViewModel(INavigationService navigationService)
             : base(navigationService)
         {
             Title = "Item Details Page";
+            //SelectedItemText = ItemSelected.Text;
+            //SelectedItemDescription = ItemSelected.Description;
             GoToMainCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync("/MenuPage/NavigationPage/MainPage"));
         }
     }

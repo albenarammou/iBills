@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="iBills.Views.MainPage"
+    x:Class="iBills.Views.Items"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:b="http://prismlibrary.com"
-    Title="{Binding Title}">
-
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True">
     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
         <Button Command="{Binding GoToDetailsCommand}" Text="Go to details" />
         <ListView
@@ -17,9 +16,9 @@
             RefreshCommand="{Binding LoadItemsCommand}"
             VerticalOptions="FillAndExpand">
             <ListView.Behaviors>
-                <b:EventToCommandBehavior
+                <prism:EventToCommandBehavior
                     Command="{Binding ItemTappedCommand}"
-                    EventArgsParameterPath ="Item"
+                    CommandParameter="{Binding .}"
                     EventName="ItemTapped" />
             </ListView.Behaviors>
             <ListView.ItemTemplate>

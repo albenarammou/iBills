@@ -16,33 +16,35 @@ namespace iBills.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
-        public ObservableCollection<Models.Item> AllItems { get; set; }
+        public Item Item { get; set; }
+        public ObservableCollection<Item> AllItems { get; set; }
         public Command LoadItemsCommand { get; set; }
-
-        public Models.Item Item { get; set; }
-
+        public DelegateCommand<object> ItemTappedCommand { get; }
         public DelegateCommand GoToDetailsCommand { get; }
+
         public MainPageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
             Title = "Main Page";
-            AllItems = new ObservableCollection<Models.Item>();
+            AllItems = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             LoadItemsCommand.Execute(AllItems);
 
             GoToDetailsCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync("ItemDetails"));
             //GoToDetailsCommand = new DelegateCommand(ExecuteNavigateCommand);
+            ItemTappedCommand = new DelegateCommand<object>(ItemTapped); 
         }
 
-        private async void onItemTapped(object sender, ItemTappedEventArgs e)
+        async private void ItemTapped(object obj)
         {
-            //var x = e.Item as myObject;
-            //await Navigation.PushAsync(new DetailPage(x));
+            var item = obj as Item;
+            if (item == null)
+                return;
             var parameters = new NavigationParameters();
             parameters.Add("item", Item);
             await NavigationService.NavigateAsync("ItemDetails", parameters);
         }
-
+        
         //async void ExecuteNavigateCommand() {
         //    var parameters = new NavigationParameters();
         //    Item = new Models.Item
@@ -56,7 +58,7 @@ namespace iBills.ViewModels
         //    await NavigationService.NavigateAsync("ItemDetails", parameters);
         //}
 
-        async Task ExecuteLoadItemsCommand()
+                async Task ExecuteLoadItemsCommand()
         {
             if (IsBusy)
                 return;
