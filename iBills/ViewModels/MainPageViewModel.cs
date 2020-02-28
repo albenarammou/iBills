@@ -21,27 +21,6 @@ namespace iBills.ViewModels
 
         public Models.Item Item { get; set; }
 
-        private string _ItemText = "Text";
-        public string ItemText
-        {
-            get => _ItemText;
-            set => SetProperty(ref _ItemText, value);
-        }
-
-        private string _ItemDescription = "Description";
-        public string ItemDescription
-        {
-            get => _ItemDescription;
-            set => SetProperty(ref _ItemDescription, value);
-        }
-
-        private bool _ItemDone = false;
-        public bool ItemDone
-        {
-            get => _ItemDone;
-            set => SetProperty(ref _ItemDone, value);
-        }
-
         public DelegateCommand GoToDetailsCommand { get; }
         public MainPageViewModel(INavigationService navigationService)
             : base(navigationService)
@@ -53,6 +32,15 @@ namespace iBills.ViewModels
 
             GoToDetailsCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync("ItemDetails"));
             //GoToDetailsCommand = new DelegateCommand(ExecuteNavigateCommand);
+        }
+
+        private async void onItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            //var x = e.Item as myObject;
+            //await Navigation.PushAsync(new DetailPage(x));
+            var parameters = new NavigationParameters();
+            parameters.Add("item", Item);
+            await NavigationService.NavigateAsync("ItemDetails", parameters);
         }
 
         //async void ExecuteNavigateCommand() {
@@ -78,7 +66,7 @@ namespace iBills.ViewModels
             try
             {
                 AllItems.Clear();
-                List<Models.Item> items = await DataStore.GetItemsAsync(); //Exeption!!!
+                List<Models.Item> items = await DataStore.GetItemsAsync(); 
                 foreach (var item in items)
                 {
                     AllItems.Add(item);

@@ -44,7 +44,7 @@ namespace iBills.ViewModels
                 {
                     Text = _NewItemText,
                     Description = _NewItemDescription,
-                    Done = false
+                    Done = true
                 };
                 _ = await DataStore.SaveItemAsync(NewItem);
                 //LoadItemsCommand.Execute(AllItems); 

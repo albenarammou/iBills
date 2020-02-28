@@ -10,6 +10,39 @@
         <ListView
             x:Name="ItemsListView"
             CachingStrategy="RecycleElement"
+            HasUnevenRows="True"
+            IsPullToRefreshEnabled="True"
+            ItemSelected="OnItemSelected"
+            ItemsSource="{Binding AllItems}"
+            RefreshCommand="{Binding LoadItemsCommand}"
+            VerticalOptions="FillAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout
+                            Margin="30,20,0,0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal">
+                            <Label
+                                HorizontalOptions="Start"
+                                LineBreakMode="NoWrap"
+                                Text="{Binding Text}" />
+                            <Label
+                                HorizontalOptions="Center"
+                                LineBreakMode="NoWrap"
+                                Text="{Binding Description}" />
+                            <Image
+                                HorizontalOptions="End"
+                                IsVisible="{Binding Done}"
+                                Source="check.jpg" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!--<ListView
+            x:Name="ItemsListView"
+            CachingStrategy="RecycleElement"
             HasUnevenRows="true"
             IsPullToRefreshEnabled="true"
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
@@ -42,7 +75,7 @@
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>
+        </ListView>-->
     </StackLayout>
 
 </ContentPage>
