@@ -6253,6 +6253,9 @@ namespace iBills.Droid
 			// aapt resource value: 0x7F07013B
 			public const int tooltip_frame_light = 2131165499;
 			
+			// aapt resource value: 0x7F07013C
+			public const int upload = 2131165500;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

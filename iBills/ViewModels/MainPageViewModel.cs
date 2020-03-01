@@ -31,7 +31,6 @@ namespace iBills.ViewModels
             LoadItemsCommand.Execute(AllItems);
 
             GoToDetailsCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync("ItemDetails"));
-            //GoToDetailsCommand = new DelegateCommand(ExecuteNavigateCommand);
             ItemTappedCommand = new DelegateCommand<object>(ItemTapped); 
         }
 
@@ -41,24 +40,12 @@ namespace iBills.ViewModels
             if (item == null)
                 return;
             var parameters = new NavigationParameters();
-            parameters.Add("item", Item);
+            parameters.Add("item",item);
             await NavigationService.NavigateAsync("ItemDetails", parameters);
         }
         
-        //async void ExecuteNavigateCommand() {
-        //    var parameters = new NavigationParameters();
-        //    Item = new Models.Item
-        //    {
-        //        Text = _ItemText,
-        //        Description = _ItemDescription,
-        //        Done = _ItemDone
-        //    };
-
-        //    parameters.Add("item", Item);
-        //    await NavigationService.NavigateAsync("ItemDetails", parameters);
-        //}
-
-                async Task ExecuteLoadItemsCommand()
+      
+        async Task ExecuteLoadItemsCommand()
         {
             if (IsBusy)
                 return;

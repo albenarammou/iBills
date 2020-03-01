@@ -27,13 +27,8 @@ namespace iBills.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-
-        private Item _ItemSelected;
-        public Item ItemSelected
-        {
-            get { return _ItemSelected; }
-            set { SetProperty(ref _ItemSelected, value); }
-        }
+        
+       
 
         public ViewModelBase(INavigationService navigationService)
         {
@@ -52,7 +47,7 @@ namespace iBills.ViewModels
 
         public virtual void OnNavigatedTo(INavigationParameters parameters)
         {
-            var ItemSelected = parameters["item"] as Item;
+           
         }
 
         public virtual void Destroy()
