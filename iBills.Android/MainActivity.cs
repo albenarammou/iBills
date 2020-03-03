@@ -1,8 +1,11 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.OS;
+using iBills.Services;
 using Prism;
 using Prism.Ioc;
+using Xamarin.Forms;
 
 namespace iBills.Droid
 {
@@ -19,6 +22,23 @@ namespace iBills.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App(new AndroidInitializer()));
         }
+        protected override void OnNewIntent(Intent intent)
+        {
+            CreateNotificationFromIntent(intent);
+        }
+
+        void CreateNotificationFromIntent(Intent intent)
+        {
+            if (intent?.Extras != null)
+            {
+                string title = intent.Extras.GetString(AndroidNotificationManager.TitleKey);
+                string message = intent.Extras.GetString(AndroidNotificationManager.MessageKey);
+
+                DependencyService.Get<INotificationManager>().ReceiveNotification(title, message);
+            }
+        }
+
+
     }
 
     public class AndroidInitializer : IPlatformInitializer
@@ -28,5 +48,6 @@ namespace iBills.Droid
             // Register any platform specific implementations
         }
     }
+
 }
 

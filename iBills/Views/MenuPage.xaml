@@ -9,19 +9,18 @@
     <MasterDetailPage.Master>
         <ContentPage Title="Menu">
             <StackLayout Padding="20">
-                <!--  TODO: // Update the Layout and add some real menu items  -->
                 <Button
                     Command="{Binding GoToMainCommand}"
                     CommandParameter="GoToMainCommand"
-                    Text="Go to main" />
+                    Text="All Bills" />
                 <Button
                     Command="{Binding GoToNewCommand}"
                     CommandParameter="GoToNewCommand"
-                    Text="Go to new" />
-                <Button
-                    Command="{Binding GoToDetailsCommand}"
-                    CommandParameter="GoToDetailsCommand"
-                    Text="Go to Item details" />
+                    Text="Create New Bill" />
+                <!--<Button
+                    Command="{Binding GoToNewCommand}"
+                    CommandParameter="SendNotificationsCommand"
+                    Text="Send Notifications" />-->
             </StackLayout>
         </ContentPage>
     </MasterDetailPage.Master>

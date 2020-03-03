@@ -1,14 +1,11 @@
 ﻿using iBills.Models;
-using iBills.Views;
+using iBills.Services;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -25,37 +22,65 @@ namespace iBills.ViewModels
         public MainPageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            Title = "Main Page";
+            Title = "All Bills";
             AllItems = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             LoadItemsCommand.Execute(AllItems);
+
+            //notificationManager = DependencyService.Get<INotificationManager>();
+            //notificationManager.NotificationReceived += (sender, eventArgs) =>
+            //{
+            //    var evtData = (NotificationEventArgs)eventArgs;
+            //    ShowNotification(evtData.Title, evtData.Message);
+            //};
+
 
             GoToDetailsCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync("ItemDetails"));
             ItemTappedCommand = new DelegateCommand<object>(ItemTapped); 
         }
 
+        //void ShowNotification(string title, string message)
+        //{
+        //    Device.BeginInvokeOnMainThread(() =>
+        //    {
+        //        var msg = new Label()
+        //        {
+        //            Text = $"Notification Received:\nTitle: {title}\nMessage: {message}"
+        //        };
+        //        //stackLayout.Children.Add(msg);
+        //    });
+        //}
+
         async private void ItemTapped(object obj)
         {
             var item = obj as Item;
             if (item == null)
+            {
                 return;
+            }
             var parameters = new NavigationParameters();
             parameters.Add("item",item);
+            if (item.Done)
+            {
+                NotificationNumber++;
+                string title = $"Bill! #{item.Text} #{NotificationNumber}";
+                string message = $"Hello! #{item.Description} {NotificationNumber} notifications!";
+                NotificationManager.ScheduleNotification(title, message);
+            }
             await NavigationService.NavigateAsync("ItemDetails", parameters);
         }
-        
       
         async Task ExecuteLoadItemsCommand()
         {
             if (IsBusy)
+            {
                 return;
-
+            }
             IsBusy = true;
-
             try
             {
                 AllItems.Clear();
-                List<Models.Item> items = await DataStore.GetItemsAsync(); 
+                List<Item> items = await DataStore.GetItemsAsync(); 
                 foreach (var item in items)
                 {
                     AllItems.Add(item);

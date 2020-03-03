@@ -31,7 +31,6 @@ namespace iBills.ViewModels
             set => SetProperty(ref _NewItemDescription, value);
         }
 
-
         public NewItemViewModel(INavigationService navigationService)
                     : base(navigationService)
         {
@@ -44,10 +43,10 @@ namespace iBills.ViewModels
                 {
                     Text = _NewItemText,
                     Description = _NewItemDescription,
-                    Done = true
+                    Done = false
                 };
                 _ = await DataStore.SaveItemAsync(NewItem);
-                //LoadItemsCommand.Execute(AllItems); 
+                _ = await NavigationService.NavigateAsync("/MenuPage/NavigationPage/MainPage");
             }
 
             bool CanSaveNew()

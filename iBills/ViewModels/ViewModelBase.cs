@@ -12,6 +12,8 @@ namespace iBills.ViewModels
 {
     public class ViewModelBase : BindableBase, IInitialize, INavigationAware, IDestructible
     {
+        public INotificationManager NotificationManager => DependencyService.Get<INotificationManager>();
+        public int NotificationNumber = 0;
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
         bool isBusy = false;
         public bool IsBusy
@@ -28,8 +30,6 @@ namespace iBills.ViewModels
             set { SetProperty(ref _title, value); }
         }
         
-       
-
         public ViewModelBase(INavigationService navigationService)
         {
             NavigationService = navigationService;

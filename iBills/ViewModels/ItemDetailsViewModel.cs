@@ -14,73 +14,34 @@ using Xamarin.Forms;
 
 namespace iBills.ViewModels
 {
-    public class ItemDetailsViewModel : BindableBase, INavigationAware
+    public class ItemDetailsViewModel : ViewModelBase 
     {
-        public Item Item { get; set; }
-        public ObservableCollection<Item> AllItems { get; set; }
-
-        public DelegateCommand GoToMainCommand { get; }
-        public Command LoadItemsCommand { get; set; }
+        //public DelegateCommand GoToMainCommand { get; }
         public DelegateCommand SaveSelectedCommand { get; }
         public DelegateCommand DeleteSelectedCommand { get; }
-
         private Item _selectedItem;
+
         public Item SelectedItem
         {
             get { return _selectedItem; }
             set { SetProperty(ref _selectedItem, value); }
         }
 
-        public ItemDetailsViewModel(INavigationService NavigationService, DbDataStore DataStore)
-
+        public ItemDetailsViewModel(INavigationService navigationService)
+                    : base(navigationService)
         {
-            AllItems = new ObservableCollection<Item>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-            LoadItemsCommand.Execute(AllItems);
-
-            async Task ExecuteLoadItemsCommand()
-            {
-
-                //if (IsBusy)
-                //    return;
-
-                //IsBusy = true;
-
-                try
-                {
-                    AllItems.Clear();
-                    List<Models.Item> items = await DataStore.GetItemsAsync();
-                    foreach (var item in items)
-                    {
-                        AllItems.Add(item);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex);
-                }
-                finally
-                {
-                    //IsBusy = false;
-                }
-            }
-
             SaveSelectedCommand = new DelegateCommand(SaveSelected, CanSave);
-
             async void SaveSelected()
             {
-                
                 _ = await DataStore.SaveItemAsync(SelectedItem);
-                LoadItemsCommand.Execute(AllItems); 
-            }
+                _ = await NavigationService.NavigateAsync("/MenuPage/NavigationPage/MainPage");
+        }
 
             DeleteSelectedCommand = new DelegateCommand(DeleteSelected, CanSave);
-
             async void DeleteSelected()
             {
-
                 _ = await DataStore.DeleteItemAsync(SelectedItem);
-                LoadItemsCommand.Execute(AllItems); 
+                _ = await NavigationService.NavigateAsync("/MenuPage/NavigationPage/MainPage");
             }
 
             bool CanSave()
@@ -88,20 +49,10 @@ namespace iBills.ViewModels
                 return true;
             }
 
-            GoToMainCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync("/MenuPage/NavigationPage/MainPage"));
+            //GoToMainCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync("/MenuPage/NavigationPage/MainPage"));
         }
 
-
-
-
-
-
-        public void OnNavigatedFrom(INavigationParameters parameters)
-        {
-            
-        }
-
-        public void OnNavigatedTo(INavigationParameters parameters)
+        public override void OnNavigatedTo(INavigationParameters parameters)
         {
             SelectedItem = parameters["item"] as Item;
         }

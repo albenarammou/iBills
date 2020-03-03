@@ -24,17 +24,20 @@ namespace iBills
         {
             InitializeComponent();
             DependencyService.Register<DbDataStore>();
+            DependencyService.Register<NotificationEventArgs>();
+            DependencyService.Register<INotificationManager>();
+            DependencyService.Get<INotificationManager>().Initialize();
+
             await NavigationService.NavigateAsync("MenuPage/NavigationPage/MainPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<MenuPage, MenuPageViewModel>();
+            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<ItemDetails, ItemDetailsViewModel>();
             containerRegistry.RegisterForNavigation<NewItem, NewItemViewModel>();
-            containerRegistry.RegisterForNavigation<Items, ItemsViewModel>();
         }
     }
 }

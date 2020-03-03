@@ -22,6 +22,10 @@
                 Margin="0"
                 FontSize="Small"
                 Text="{Binding NewItemDescription}" />
+            <DatePicker
+                Date="{Binding SelectedDate}"
+                MaximumDate="01/01/2021"
+                MinimumDate="01/01/2020" />
         </StackLayout>
 
     </ContentPage.Content>

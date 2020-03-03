@@ -7,7 +7,6 @@
     Title="{Binding Title}">
 
     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-        <Button Command="{Binding GoToDetailsCommand}" Text="Go to details" />
         <ListView
             x:Name="ItemsListView"
             CachingStrategy="RecycleElement"
@@ -19,7 +18,7 @@
             <ListView.Behaviors>
                 <b:EventToCommandBehavior
                     Command="{Binding ItemTappedCommand}"
-                    EventArgsParameterPath ="Item"
+                    EventArgsParameterPath="Item"
                     EventName="ItemTapped" />
             </ListView.Behaviors>
             <ListView.ItemTemplate>

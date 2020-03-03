@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="iBills.Views.ItemDetails"
-    x:Name="Details"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:prism="http://prismlibrary.com"
+    x:Name="Details"
     Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ScrollView>
@@ -21,16 +21,19 @@
                 d:Text="SelectedItem description"
                 FontSize="Small"
                 Text="{Binding SelectedItem.Description}" />
+            <DatePicker
+                Date="{Binding SelectedDate}"
+                MaximumDate="01/01/2021"
+                MinimumDate="01/01/2020" />
             <Switch IsToggled="{Binding SelectedItem.Done}" />
-            <Button  Command="{Binding SaveSelectedCommand}"
-                     CommandParameter="SaveSelectedCommand" 
-                     Text="Save" />
-            <Button Command="{Binding DeleteSelectedCommand}"
-                    CommandParameter="DeleteSelectedCommand"  
-                    Text="Delete" />
-            <Button Command="{Binding GoToMainCommand}"
-                    CommandParameter="GoToMainCommand"  
-                    Text="Cancel" />
+            <Button
+                Command="{Binding SaveSelectedCommand}"
+                CommandParameter="SaveSelectedCommand"
+                Text="Save" />
+            <Button
+                Command="{Binding DeleteSelectedCommand}"
+                CommandParameter="DeleteSelectedCommand"
+                Text="Delete" />
             <StackLayout>
                 <Label
                     x:Name="Url"
