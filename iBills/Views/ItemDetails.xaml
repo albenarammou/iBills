@@ -22,7 +22,8 @@
                 FontSize="Small"
                 Text="{Binding SelectedItem.Description}" />
             <DatePicker
-                Date="{Binding SelectedDate}"
+                Date="{Binding SelectedItem.Date}"
+                Format="dd/MM/yyyy"
                 MaximumDate="01/01/2021"
                 MinimumDate="01/01/2020" />
             <Switch IsToggled="{Binding SelectedItem.Done}" />

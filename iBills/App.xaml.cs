@@ -26,7 +26,6 @@ namespace iBills
             DependencyService.Register<DbDataStore>();
             DependencyService.Register<NotificationEventArgs>();
             DependencyService.Register<INotificationManager>();
-            DependencyService.Get<INotificationManager>().Initialize();
 
             await NavigationService.NavigateAsync("MenuPage/NavigationPage/MainPage");
         }

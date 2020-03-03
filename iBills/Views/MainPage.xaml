@@ -28,14 +28,26 @@
                             Margin="30,20,0,0"
                             HorizontalOptions="FillAndExpand"
                             Orientation="Horizontal">
+                            <!--<Label
+                                HorizontalOptions="Center"
+                                LineBreakMode="NoWrap"
+                                Text="{Binding Date}" />-->
+                            <DatePicker
+                                Date="{Binding Date}"
+                                Format="dd/MM/yyyy"
+                                IsEnabled="False"
+                                MaximumDate="01/01/2021"
+                                MinimumDate="01/01/2020" />
                             <Label
                                 HorizontalOptions="Start"
                                 LineBreakMode="NoWrap"
-                                Text="{Binding Text}" />
+                                Text="{Binding Text}"
+                                VerticalOptions="Center" />
                             <Label
-                                HorizontalOptions="Center"
+                                HorizontalOptions="Start"
                                 LineBreakMode="NoWrap"
-                                Text="{Binding Description}" />
+                                Text="{Binding Description}"
+                                VerticalOptions="Center" />
                             <Image
                                 HorizontalOptions="End"
                                 IsVisible="{Binding Done}"

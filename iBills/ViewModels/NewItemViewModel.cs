@@ -31,6 +31,13 @@ namespace iBills.ViewModels
             set => SetProperty(ref _NewItemDescription, value);
         }
 
+        private DateTime _NewItemdDate = DateTime.Now;
+        public DateTime NewItemdDate 
+        {
+            get => _NewItemdDate;
+            set => SetProperty(ref _NewItemdDate, value);
+        }
+
         public NewItemViewModel(INavigationService navigationService)
                     : base(navigationService)
         {
@@ -43,6 +50,7 @@ namespace iBills.ViewModels
                 {
                     Text = _NewItemText,
                     Description = _NewItemDescription,
+                    Date = _NewItemdDate,
                     Done = false
                 };
                 _ = await DataStore.SaveItemAsync(NewItem);
