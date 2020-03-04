@@ -27,8 +27,8 @@ namespace iBills.ViewModels
             set { SetProperty(ref _selectedItem, value); }
         }
 
-        public ItemDetailsViewModel(INavigationService navigationService)
-                    : base(navigationService)
+        public ItemDetailsViewModel(INavigationService navigationService, IDataStore<Item> DataStore)
+                    : base(navigationService, DataStore)
         {
             SaveSelectedCommand = new DelegateCommand(SaveSelected, CanSave);
             async void SaveSelected()

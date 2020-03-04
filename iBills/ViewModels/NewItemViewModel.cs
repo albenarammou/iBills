@@ -1,4 +1,5 @@
 ﻿using iBills.Models;
+using iBills.Services;
 using iBills.Views;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -38,8 +39,8 @@ namespace iBills.ViewModels
             set => SetProperty(ref _NewItemdDate, value);
         }
 
-        public NewItemViewModel(INavigationService navigationService)
-                    : base(navigationService)
+        public NewItemViewModel(INavigationService navigationService, IDataStore<Item> DataStore)
+                    : base(navigationService, DataStore)
         {
             GoToMainCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync("/MenuPage/NavigationPage/MainPage"));
             SaveNewCommand = new DelegateCommand(SaveNew, CanSaveNew);

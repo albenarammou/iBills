@@ -19,12 +19,12 @@ namespace iBills.ViewModels
         public DelegateCommand<object> ItemTappedCommand { get; }
         public DelegateCommand GoToDetailsCommand { get; }
 
-        public MainPageViewModel(INavigationService navigationService)
-            : base(navigationService)
+        public MainPageViewModel(INavigationService navigationService, IDataStore<Item> DataStore)
+            : base(navigationService, DataStore)
         {
             Title = "All Bills";
             AllItems = new ObservableCollection<Item>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand(DataStore));
             LoadItemsCommand.Execute(AllItems);
 
             //notificationManager = DependencyService.Get<INotificationManager>();
@@ -69,8 +69,8 @@ namespace iBills.ViewModels
             }
             await NavigationService.NavigateAsync("ItemDetails", parameters);
         }
-      
-        async Task ExecuteLoadItemsCommand()
+
+        async Task ExecuteLoadItemsCommand(IDataStore<Item> DataStore)
         {
             if (IsBusy)
             {

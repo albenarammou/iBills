@@ -1,4 +1,6 @@
-﻿using Prism.Commands;
+﻿using iBills.Models;
+using iBills.Services;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
@@ -14,8 +16,8 @@ namespace iBills.ViewModels
         public DelegateCommand GoToNewCommand { get; }
 
 
-        public MenuPageViewModel(INavigationService navigationService)
-            : base(navigationService)
+        public MenuPageViewModel(INavigationService navigationService, IDataStore<Item> DataStore)
+            : base(navigationService, DataStore)
         {
             GoToDetailsCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync("/MenuPage/NavigationPage/ItemDetails"));
             GoToMainCommand = new DelegateCommand(async () => await NavigationService.NavigateAsync("/MenuPage/NavigationPage/MainPage"));

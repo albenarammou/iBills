@@ -21,6 +21,7 @@ namespace iBills.Services
             Database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
             InitializeAsync().SafeFireAndForget(false);
         }
+
         public Task<Item> GetItemAsync(int id)
         {
             return Database.Table<Item>().Where(i => i.Id == id).FirstOrDefaultAsync();
@@ -59,6 +60,7 @@ namespace iBills.Services
             }
         }
 
+        
     }
 
     public static class TaskExtensions

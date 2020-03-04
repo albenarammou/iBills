@@ -5,6 +5,7 @@ using iBills.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using iBills.Services;
+using iBills.Models;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace iBills
@@ -23,7 +24,6 @@ namespace iBills
         protected override async void OnInitialized()
         {
             InitializeComponent();
-            DependencyService.Register<DbDataStore>();
             DependencyService.Register<NotificationEventArgs>();
             DependencyService.Register<INotificationManager>();
 
@@ -32,6 +32,7 @@ namespace iBills
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterInstance<IDataStore<Item>>(new DbDataStore());
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MenuPage, MenuPageViewModel>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
